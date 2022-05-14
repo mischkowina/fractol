@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   mandelbrot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 16:32:56 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/14 15:41:06 by smischni         ###   ########.fr       */
+/*   Created: 2022/05/14 15:38:52 by smischni          #+#    #+#             */
+/*   Updated: 2022/05/14 16:31:37 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#include "fractol.h"
 
-# include "libft/libft.h"
-# include "mlx/mlx.h" //tbd. ob installieren oder mit pushen
-# include <math.h>
+int	ft_mandelbrot(void)
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
 
-void	ft_display_options(void);
-
-void	ft_mandelbrot(void);
-
-void	ft_julia(void);
-
-#endif
+	mlx_ptr = mlx_init();
+	if (!mlx_ptr)
+		return (1);
+	win_ptr = mlx_new_window(mlx_ptr, 500, 500, "Mandelbrot fractal");
+	if (!win_ptr)
+	{
+		mlx_destroy_display(mlx_ptr);
+		free(mlx_ptr);
+		return (1);
+	}
+	mlx_loop(mlx_ptr);
+	mlx_destroy_window(mlx_ptr, win_ptr);
+	mlx_destroy_display(mlx_ptr);
+	free(mlx_ptr);
+	return (0);
+}
