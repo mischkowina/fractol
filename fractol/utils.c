@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/14 15:40:09 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/17 14:15:10 by smischni         ###   ########.fr       */
+/*   Created: 2022/05/17 14:18:30 by smischni          #+#    #+#             */
+/*   Updated: 2022/05/17 14:19:32 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	julia(void)
+void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	ft_printf("Platzhalter ft_julia\n");
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }

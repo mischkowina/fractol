@@ -6,7 +6,7 @@
 #    By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 16:30:01 by smischni          #+#    #+#              #
-#    Updated: 2022/05/14 16:12:08 by smischni         ###   ########.fr        #
+#    Updated: 2022/05/16 10:51:06 by smischni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,8 @@ CFLAGS		=	-Wall -Wextra -Werror
 NAME		=	fractol
 LIBFT		=	libft/libft.a
 LIBFT_PATH	=	libft/
-MLX			=	mlx/libmlx.a
-MLX_PATH	=	mlx/
+MLX			=	../mlx/libmlx.a
+MLX_PATH	=	../mlx/
 
 all:		$(NAME)
 
