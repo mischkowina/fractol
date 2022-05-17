@@ -6,13 +6,14 @@
 #    By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 16:30:01 by smischni          #+#    #+#              #
-#    Updated: 2022/05/16 10:51:06 by smischni         ###   ########.fr        #
+#    Updated: 2022/05/17 18:58:14 by smischni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ## ggf. anpassen und mlx nicht mit compilen & pushen ##
 
 SRCS		=	fractol.c \
+				utils.c \
 				mandelbrot.c \
 				julia.c
 

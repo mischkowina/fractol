@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:32:56 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/17 16:46:26 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/17 19:47:37 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ int		mandelbrot(void);
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	img_mandelbrot(t_data *img, t_vars *vars);
 int		init_mandelbrot(t_vars *vars);
+void	get_r_and_i(t_point *p, t_vars *vars);
+double	check_z(t_point z);
+int		pixel_mandelbrot(t_point *p, t_vars *vars);
 
 void	julia(void);
 
