@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:32:56 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/17 19:47:37 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/18 19:37:14 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_point {
 	int		y;
 	double	r;
 	double	i;
+	int		n;
 }				t_point;
 
 typedef struct s_data {
@@ -47,13 +48,19 @@ typedef struct s_vars
 void	display_options(void);
 
 int		mandelbrot(void);
-void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	ft_mlx_pixel_put(t_data *img, int x, int y, int color);
 void	img_mandelbrot(t_data *img, t_vars *vars);
 int		init_mandelbrot(t_vars *vars);
 void	get_r_and_i(t_point *p, t_vars *vars);
 double	check_z(t_point z);
-int		pixel_mandelbrot(t_point *p, t_vars *vars);
+t_point	pixel_mandelbrot(t_point *p, t_vars *vars);
+void	determine_colour(t_data *img, int x, int y, int c);
+int		create_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b);
 
 void	julia(void);
+
+void	color_bernstein(t_data *img, int x, int y, t_point z);
+void	color_sin(t_data *img, int x, int y, t_point z);
+void	color_accident(t_data *img, int x, int y, t_point z);
 
 #endif

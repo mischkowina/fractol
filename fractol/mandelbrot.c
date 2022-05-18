@@ -6,16 +6,15 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:38:52 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/17 19:47:00 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/18 20:05:24 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <stdio.h> //löschen
 
 #define WIN_WIDTH 1440
 #define WIN_HEIGHT 1080
-#define X_ZERO 960
-#define Y_ZERO 540
 
 int	mandelbrot(void)
 {
@@ -59,18 +58,18 @@ int	init_mandelbrot(t_vars *vars)
 void	img_mandelbrot(t_data *img, t_vars *vars)
 {
 	t_point	p;
-	int		i;
+	t_point	z;
 	
 	p.x = 0;
 	p.y = 0;
-	i = 0;
 	while (p.y <= WIN_HEIGHT)
 	{
 		p.x = 0;
 		while (p.x <= WIN_WIDTH)
 		{
-			if (pixel_mandelbrot(&p, vars) != 0)
-				ft_mlx_pixel_put(img, p.x, p.y, 0x00FF00FF);
+			z = pixel_mandelbrot(&p, vars);
+			if (check_z(z) >= 4)
+				color_sin(img, p.x, p.y, z);
 			p.x++;
 		}
 		p.y++;
@@ -79,32 +78,28 @@ void	img_mandelbrot(t_data *img, t_vars *vars)
 
 void	get_r_and_i(t_point *p, t_vars *vars)
 {
-	p->r = (0 + ((p->x - vars->x_zero) / (fabs(vars->x_max) + fabs(vars->x_min))));
-	p->i = (0 + ((vars->y_zero - p->y) / (fabs(vars->y_max) + fabs(vars->y_min))));
+	p->r = ((p->x - vars->x_zero) * ((fabs(vars->x_max) + fabs(vars->x_min)) / WIN_WIDTH));
+	p->i = ((vars->y_zero - p->y) * ((fabs(vars->y_max) + fabs(vars->y_min)) / WIN_HEIGHT));
 }
 
-int	pixel_mandelbrot(t_point *p, t_vars *vars)
+t_point	pixel_mandelbrot(t_point *p, t_vars *vars)
 {
-	int		i;
 	t_point	z;
 	t_point tmp;
 
-	i = 0;
+	z.n = 0;
 	z.r = 0;
 	z.i = 0;
 	get_r_and_i(p, vars);
-	while (i < 255 && check_z(z) < 4)
+	while (z.n < 255 && check_z(z) < 4)
 	{
 		tmp.r = z.r;
 		tmp.i = z.i;
 		z.r = (tmp.r * tmp.r) - (tmp.i * tmp.i) + p->r;
 		z.i = (2 * tmp.r * tmp.i) + p->i;
-		i++;
+		z.n++;
 	}
-	if (check_z(z) < 4)
-		return (0);
-	else
-		return (i);
+		return (z);
 }
 
 double	check_z(t_point z)
