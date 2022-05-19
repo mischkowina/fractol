@@ -6,13 +6,14 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:40:09 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/17 14:15:10 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/19 16:19:20 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	julia(void)
+void	julia(char *color)
 {
+	color = "Saskia";
 	ft_printf("Platzhalter ft_julia\n");
 }

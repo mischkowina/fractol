@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:38:52 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/18 20:05:24 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/19 16:28:46 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 #define WIN_WIDTH 1440
 #define WIN_HEIGHT 1080
 
-int	mandelbrot(void)
+int	mandelbrot(char *color)
 {
 	t_vars	vars;
 	t_data	img;
 
-	if (init_mandelbrot(&vars) == 1)
+	if (init_mandelbrot(&vars, color) == 1)
 		return (1);
 	img.img = mlx_new_image(vars.mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
@@ -34,7 +34,7 @@ int	mandelbrot(void)
 	return (0);
 }
 
-int	init_mandelbrot(t_vars *vars)
+int	init_mandelbrot(t_vars *vars, char *color)
 {
 	vars->mlx_ptr = mlx_init();
 	if (!vars->mlx_ptr)
@@ -46,6 +46,7 @@ int	init_mandelbrot(t_vars *vars)
 		free(vars->mlx_ptr);
 		return (1);
 	}
+	determine_color(vars, color);
 	vars->x_max = 1;
 	vars->x_min = -2;
 	vars->y_max = 1;
@@ -69,7 +70,7 @@ void	img_mandelbrot(t_data *img, t_vars *vars)
 		{
 			z = pixel_mandelbrot(&p, vars);
 			if (check_z(z) >= 4)
-				color_sin(img, p.x, p.y, z);
+				vars->f_col(img, p.x, p.y, z);
 			p.x++;
 		}
 		p.y++;
@@ -108,4 +109,16 @@ double	check_z(t_point z)
 
 	res = (z.r * z.r + z.i * z.i);
 	return (res);
+}
+
+void	determine_color(t_vars *vars, char* color)
+{
+	if (ft_strncmp(color, "bernstein", 11) == 0)
+		vars->f_col = color_bernstein;
+	else if (ft_strncmp(color, "blue_hour", 11) == 0)
+		vars->f_col = color_blue_hour;
+	else if (ft_strncmp(color, "golden_hour", 13) == 0)
+		vars->f_col = color_golden_hour;
+	else if (ft_strncmp(color, "black/white", 13) == 0)
+		vars->f_col = color_black_white;
 }
