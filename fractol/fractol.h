@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:32:56 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/19 15:00:19 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:56:17 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_point {
 typedef struct s_data {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
+	int		bpp;
 	int		line_length;
 	int		endian;
 }				t_data;
@@ -50,19 +50,19 @@ void	display_options(void);
 int		check_valid_arg_2(char *arg);
 
 int		mandelbrot(char *color);
-void	ft_mlx_pixel_put(t_data *img, int x, int y, int color);
-void	img_mandelbrot(t_data *img, t_vars *vars);
 int		init_mandelbrot(t_vars *vars, char *color);
-void	get_r_and_i(t_point *p, t_vars *vars);
-double	check_z(t_point z);
+void	img_mandelbrot(t_data *img, t_vars *vars);
 t_point	pixel_mandelbrot(t_point *p, t_vars *vars);
-void	determine_colour(t_data *img, int x, int y, int c);
-int		create_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b);
 
 void	julia(char *color);
 
+void	ft_mlx_pixel_put(t_data *img, int x, int y, int color);
+void	get_r_and_i(t_point *p, t_vars *vars);
+double	check_z(t_point z);
+int		create_trgb(unsigned int t, unsigned int r,
+			unsigned int g, unsigned int b);
 
-void	determine_color(t_vars *vars, char* color);
+void	determine_color(t_vars *vars, char *color);
 void	color_bernstein(t_data *img, int x, int y, t_point z);
 void	color_golden_hour(t_data *img, int x, int y, t_point z);
 void	color_blue_hour(t_data *img, int x, int y, t_point z);

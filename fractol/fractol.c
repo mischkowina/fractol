@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:30:22 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/19 14:39:27 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:50:56 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,43 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
+/**
+ * Function displays the different program options / arguments to the terminal
+ * in case of invalid/incomplete input.
+*/
 void	display_options(void)
 {
-	
-	ft_printf("\n-----------------------------------------------------------------------------------------\n");
-	ft_printf("Available fractals:\n\n");
+	int	i;
+
+	i = 0;
+	ft_printf("\n");
+	ft_printf("\nAvailable fractals:\n\n");
 	ft_printf("* mandelbrot\n");
 	ft_printf("* julia\n\n");
-	ft_printf("-----------------------------------------------------------------------------------------\n");
-	ft_printf("Available color schemes:\n\n");
+	while (i++ < 92)
+		ft_printf("-");
+	i = 0;
+	ft_printf("\nAvailable color schemes:\n\n");
 	ft_printf("* bernstein\n");
 	ft_printf("* blue_hour\n");
 	ft_printf("* golden_hour\n");
 	ft_printf("* black/white\n\n");
-	ft_printf("-----------------------------------------------------------------------------------------\n");
-	ft_printf("run \"./fractol <fractal name> <color scheme>\" to display the respective fractal\n");
-	ft_printf("-----------------------------------------------------------------------------------------\n\n");
+	while (i++ < 92)
+		ft_printf("-");
+	i = 0;
+	ft_printf("\nrun \"./fractol <fractal name> <color scheme>\"\n");
+	while (i++ < 92)
+		ft_printf("-");
+	i = 0;
+	ft_printf("\n\n");
 }
 
+/**
+ * Checks whether the second argument of the command line input is a valid
+ * color-scheme.
+ * @param arg [char *] String containing the second command line argument.
+ * @return [int] Returns 0 if the string is a valid argument, else returns 1.
+*/
 int	check_valid_arg_2(char *arg)
 {
 	if (ft_strncmp(arg, "bernstein", 11) != 0)
@@ -59,5 +78,5 @@ int	check_valid_arg_2(char *arg)
 			}
 		}
 	}
-	return (0);	
+	return (0);
 }
