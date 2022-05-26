@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 14:22:38 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/26 17:28:39 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/26 18:34:35 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,26 @@ int	handle_keypress(int key, t_vars *vars)
 
 int	handle_mouse(int key, int x, int y, t_vars *vars)
 {
-	int	x_shft;
-	int	y_shft;
+	double	x_axis;
+	double	y_axis;
+	double	mul;
+	t_point	p;
 
-	x_shft = 0;
-	y_shft = 0;
-	if (x != (WIDTH / 2))
-		x_shft = x - (WIDTH / 2);
-	if (y != (HEIGHT / 2))
-		y_shft = (HEIGHT / 2) - y;
-	if (key == 4)
-	{
-		vars->x_max = vars->x_max * 0.98;
-		vars->x_min = vars->x_min * 0.98;
-		vars->y_max = vars->y_max * 0.98;
-		vars->y_min = vars->y_min * 0.98;
-	}
-	else if (key == 5)
-	{
-		vars->x_max = vars->x_max * 1.02;
-		vars->x_min = vars->x_min * 1.02;
-		vars->y_max = vars->y_max * 1.02;
-		vars->y_min = vars->y_min * 1.02;
-	}
+	p.x = x;
+	p.y = y;
+	mul = 1;
+	get_r_and_i(&p, vars);
+	if (key == 5) //PROBLEM
+		mul = 0.9;
+	else if (key == 4) //PROBLEM
+		mul = 1.1;
+	x_axis = (fabs(vars->x_min) + fabs(vars->x_min)) * mul;
+	y_axis = (fabs(vars->y_min) + fabs(vars->y_min)) * mul;
+	vars->x_min = p.r - (p.x * (x_axis / WIDTH));
+	vars->x_max = vars->x_min + x_axis;
+	vars->x_zero = (fabs(vars->x_min) / x_axis) * WIDTH;
+	vars->y_max = p.i + (p.y * (y_axis / HEIGHT));
+	vars->y_min = vars->y_max - y_axis;
+	vars->y_zero = (fabs(vars->y_max) / y_axis) * HEIGHT;
 	return (0);
 }
