@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:38:52 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/26 14:30:13 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/26 15:23:12 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ int	mandelbrot(char *color)//Bearbeitung text
 
 	if (init_mandelbrot(&vars, color) == 1)
 		return (1);
-	mlx_loop_hook(vars.mlx_ptr, &render_mandelbrot, &vars);
 	mlx_hook(vars.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &vars);
+	mlx_loop_hook(vars.mlx_ptr, &render_mandelbrot, &vars);
+	render_mandelbrot(&vars);
 	mlx_loop(vars.mlx_ptr);
 	mlx_destroy_window(vars.mlx_ptr, vars.win_ptr);
 	mlx_destroy_display(vars.mlx_ptr);

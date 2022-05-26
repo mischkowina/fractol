@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:32:56 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/26 14:30:08 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/26 15:37:28 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@
 # include "/usr/X11/include/X11/X.h"
 # include <math.h>
 
-# define WIDTH 1440
-# define HEIGHT 1080
+# define WIDTH 			1440
+# define HEIGHT			1080
 # define KEY_ESC		65307
+# define KEY_LEFT		65361
+# define KEY_RIGHT		65363
+# define KEY_UP			65362
+# define KEY_DOWN		65364
 
 typedef struct s_point {
 	int		x;
