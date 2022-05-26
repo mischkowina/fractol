@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:32:56 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/26 15:37:28 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/26 17:12:00 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_point	pixel_mandelbrot(t_point *p, t_vars *vars);
 void	julia(char *color);
 
 int		handle_keypress(int keysym, t_vars *vars);
+int	handle_mouse(int key, int x, int y, t_vars *vars);
 
 void	ft_mlx_pixel_put(t_data *img, int x, int y, int color);
 void	get_r_and_i(t_point *p, t_vars *vars);
