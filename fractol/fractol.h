@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:32:56 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/24 15:56:17 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/26 13:50:09 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define FRACTOL_H
 
 # include "libft/libft.h"
-# include "../mlx/mlx.h" //tbd. ob installieren oder mit pushen
+# include "../mlx/mlx.h"
+#include <X11/keysym.h>
 # include <math.h>
 
 typedef struct s_point {
@@ -44,6 +45,7 @@ typedef struct s_vars
 	int		x_zero;
 	int		y_zero;
 	void	(*f_col)(t_data *img, int x, int y, t_point z);
+	t_data	img;
 }				t_vars;
 
 void	display_options(void);
@@ -51,7 +53,7 @@ int		check_valid_arg_2(char *arg);
 
 int		mandelbrot(char *color);
 int		init_mandelbrot(t_vars *vars, char *color);
-void	img_mandelbrot(t_data *img, t_vars *vars);
+int		render_mandelbrot(t_vars *vars);
 t_point	pixel_mandelbrot(t_point *p, t_vars *vars);
 
 void	julia(char *color);

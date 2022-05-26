@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:38:52 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/24 15:22:29 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/26 13:42:14 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,13 @@
  * @param color [char *] String containing the color specified in command line.
  * @return [int] 1 in case of error, 0 if the function worked as expected.
  */
-int	mandelbrot(char *color)
+int	mandelbrot(char *color)//Bearbeitung text
 {
 	t_vars	vars;
-	t_data	img;
 
 	if (init_mandelbrot(&vars, color) == 1)
 		return (1);
-	img.img = mlx_new_image(vars.mlx_ptr, WIDTH, HEIGHT);
-	img.addr = mlx_get_data_addr(img.img, &img.bpp,
-			&img.line_length, &img.endian);
-	img_mandelbrot(&img, &vars);
-	mlx_put_image_to_window(vars.mlx_ptr, vars.win_ptr, img.img, 0, 0);
+	mlx_loop_hook(vars.mlx_ptr, &render_mandelbrot, &vars);
 	mlx_loop(vars.mlx_ptr);
 	mlx_destroy_window(vars.mlx_ptr, vars.win_ptr);
 	mlx_destroy_display(vars.mlx_ptr);
@@ -81,13 +76,16 @@ int	init_mandelbrot(t_vars *vars, char *color)
  * @param img [t_data *] Pointer to the struct containing all image variables.
  * @param vars [t_vars *] Pointer to the struct containing important variables.
  */
-void	img_mandelbrot(t_data *img, t_vars *vars)
+int	render_mandelbrot(t_vars *vars)//Bearbeitung text
 {
 	t_point	p;
 	t_point	z;
 
 	p.x = 0;
 	p.y = 0;
+	vars->img.img = mlx_new_image(vars->mlx_ptr, WIDTH, HEIGHT);
+	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bpp,
+			&vars->img.line_length, &vars->img.endian);
 	while (p.y <= HEIGHT)
 	{
 		p.x = 0;
@@ -95,11 +93,13 @@ void	img_mandelbrot(t_data *img, t_vars *vars)
 		{
 			z = pixel_mandelbrot(&p, vars);
 			if (check_z(z) >= 4)
-				vars->f_col(img, p.x, p.y, z);
+				vars->f_col(&vars->img, p.x, p.y, z);
 			p.x++;
 		}
 		p.y++;
 	}
+	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->img.img, 0, 0);
+	return (0);
 }
 
 /**
