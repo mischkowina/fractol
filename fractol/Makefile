@@ -6,7 +6,7 @@
 #    By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 16:30:01 by smischni          #+#    #+#              #
-#    Updated: 2022/05/19 16:24:55 by smischni         ###   ########.fr        #
+#    Updated: 2022/05/26 14:27:06 by smischni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@
 SRCS		=	fractol.c \
 				utils.c \
 				colors.c \
+				events.c \
 				mandelbrot.c \
 				julia.c
 

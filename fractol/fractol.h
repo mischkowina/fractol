@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:32:56 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/26 13:50:09 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/26 14:30:08 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 
 # include "libft/libft.h"
 # include "../mlx/mlx.h"
-#include <X11/keysym.h>
+# include "/usr/X11/include/X11/X.h"
 # include <math.h>
+
+# define WIDTH 1440
+# define HEIGHT 1080
+# define KEY_ESC		65307
 
 typedef struct s_point {
 	int		x;
@@ -57,6 +61,8 @@ int		render_mandelbrot(t_vars *vars);
 t_point	pixel_mandelbrot(t_point *p, t_vars *vars);
 
 void	julia(char *color);
+
+int		handle_keypress(int keysym, t_vars *vars);
 
 void	ft_mlx_pixel_put(t_data *img, int x, int y, int color);
 void	get_r_and_i(t_point *p, t_vars *vars);

@@ -6,14 +6,11 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:18:30 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/24 15:54:57 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/26 14:30:31 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-#define WIDTH 1440
-#define HEIGHT 1080
 
 /**
  * Puts a pixel onto an image instead of putting it directly to the display.
