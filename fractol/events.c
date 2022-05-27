@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 14:22:38 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/26 18:34:35 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/27 12:03:45 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ int	handle_mouse(int key, int x, int y, t_vars *vars)
 	p.y = y;
 	mul = 1;
 	get_r_and_i(&p, vars);
-	if (key == 5) //PROBLEM
-		mul = 0.9;
-	else if (key == 4) //PROBLEM
-		mul = 1.1;
-	x_axis = (fabs(vars->x_min) + fabs(vars->x_min)) * mul;
-	y_axis = (fabs(vars->y_min) + fabs(vars->y_min)) * mul;
+	if (key == 4)
+		mul = 0.8;
+	else if (key == 5)
+		mul = 1.2;
+	x_axis = (fabs(vars->x_min) + fabs(vars->x_max)) * mul;
+	y_axis = (fabs(vars->y_min) + fabs(vars->y_max)) * mul;
 	vars->x_min = p.r - (p.x * (x_axis / WIDTH));
 	vars->x_max = vars->x_min + x_axis;
 	vars->x_zero = (fabs(vars->x_min) / x_axis) * WIDTH;
