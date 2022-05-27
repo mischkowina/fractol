@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:18:30 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/26 14:30:31 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/27 21:44:37 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ void	ft_mlx_pixel_put(t_data *img, int x, int y, int color)
  */
 void	get_r_and_i(t_point *p, t_vars *vars)
 {
-	p->r = ((p->x - vars->x_zero) * ((fabs(vars->x_max)
-					+ fabs(vars->x_min)) / WIDTH));
-	p->i = ((vars->y_zero - p->y) * ((fabs(vars->y_max)
-					+ fabs(vars->y_min)) / HEIGHT));
+	p->r = ((p->x - vars->x_zero) * ((vars->x_max - vars->x_min) / WIDTH));
+	p->i = ((vars->y_zero - p->y) * ((vars->y_max - vars->y_min) / HEIGHT));
 }
 
 /**
