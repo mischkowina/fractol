@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:38:52 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/27 12:09:45 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/27 22:21:37 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,13 @@ int	init_mandelbrot(t_vars *vars, char *color)
 }
 
 /**
- * Iterates through each pixel of the image and determines if it lies within the
- * mandelbrot set or outside of it. In case it lies outside, calls the respective
- * function to color the pixel.
+ * Initializes the image to be pushed onto the display. Then iterates through 
+ * each pixel of the image and determines if it lies within the mandelbrot set
+ * or outside of it. In case it lies outside, calls the respective function to
+ * color the pixel.
  * @param img [t_data *] Pointer to the struct containing all image variables.
  * @param vars [t_vars *] Pointer to the struct containing important variables.
+ * @return [int] tbd
  */
 int	render_mandelbrot(t_vars *vars)//Bearbeitung text
 {
