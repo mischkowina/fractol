@@ -6,21 +6,21 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:38:52 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/31 17:13:02 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:34:11 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 /**
- * Function to display the mandelbrot fractal in the specified color.
- * Calls functions to initialize the display as well as to initialize and 
- * create the first image of the mandelbrot fractal. Destroys the window and 
- * the display and frees the mlx-pointer at the end of the program.
+ * Function to display the mandelbrot fractal in the specified color. Calls 
+ * functions to initialize the display and initializes an image for the 
+ * mandelbrot fractal to be rendered in. Loops the rendering function within
+ * the mlx_loop_hook and calls different hook functions in case of events.
  * @param color [char *] String containing the color specified in command line.
  * @return [int] 1 in case of error, 0 if the function worked as expected.
  */
-int	mandelbrot(char *color)//Bearbeitung text
+int	mandelbrot(char *color)
 {
 	t_vars	vars;
 
@@ -70,15 +70,15 @@ int	init_mandelbrot(t_vars *vars, char *color)
 }
 
 /**
- * Initializes the image to be pushed onto the display. Then iterates through 
- * each pixel of the image and determines if it lies within the mandelbrot set
- * or outside of it. In case it lies outside, calls the respective function to
- * color the pixel.
+ * First clears the image. Then iterates through each pixel of the image and 
+ * determines if it lies within the mandelbrot set or outside of it. In case 
+ * it lies outside, calls the respective function to color the pixel. In the 
+ * end, the image is pushed to the window.
  * @param img [t_data *] Pointer to the struct containing all image variables.
  * @param vars [t_vars *] Pointer to the struct containing important variables.
  * @return [int] tbd
  */
-int	render_mandelbrot(t_vars *vars)//Bearbeitung text
+int	render_mandelbrot(t_vars *vars)//Bearbeitung Return value
 {
 	t_point	p;
 	t_point	z;
@@ -135,6 +135,13 @@ t_point	pixel_mandelbrot(t_point *p, t_vars *vars)
 	return (z);
 }
 
+/**
+ * Checks whether the pixel lies within defined areas of the mandelbrot set in
+ * order to optimize processing time. If a pixel lies within these areas, no
+ * further calculation is necessary and the pixel doesn't get colored.
+ * @param p [t_point *] Pointer to variables describing a pixel on the display.
+ * @return [int] 0 in case the pixel lies in one of the areas, else 1.
+ */
 int	optimize_mandelbrot(t_point *p)
 {
 	if (p->r <= 0.2 && p->r >= -0.45 && p->i <= 0.5 && p->i >= -0.5)
