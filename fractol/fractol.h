@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:32:56 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/31 15:43:20 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:00:44 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_point {
 	double	r;
 	double	i;
 	int		n;
+	double	res;
 }				t_point;
 
 typedef struct s_data {

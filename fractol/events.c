@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 14:22:38 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/31 15:49:02 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:21:18 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	key_up_down(int key, t_vars *vars)
 {
 	double	y;
 
-	mlx_destroy_image(vars->mlx_ptr, vars->img.img);
 	y = (vars->y_max - vars->y_min) * 0.05;
 	if (key == KEY_UP)
 	{
@@ -42,14 +41,12 @@ void	key_up_down(int key, t_vars *vars)
 		vars->y_max -= y;
 		vars->y_min -= y;
 	}
-	render_mandelbrot(vars);
 }
 
 void	key_right_left(int key, t_vars *vars)
 {
 	double	x;
 
-	mlx_destroy_image(vars->mlx_ptr, vars->img.img);
 	x = (vars->x_max - vars->x_min) * 0.05;
 	if (key == KEY_RIGHT)
 	{
@@ -63,7 +60,6 @@ void	key_right_left(int key, t_vars *vars)
 		vars->x_max -= x;
 		vars->x_min -= x;
 	}
-	render_mandelbrot(vars);
 }
 
 int	handle_mouse(int key, int x, int y, t_vars *vars)
@@ -73,24 +69,22 @@ int	handle_mouse(int key, int x, int y, t_vars *vars)
 	double	mul;
 	t_point	p;
 
-	mlx_destroy_image(vars->mlx_ptr, vars->img.img);
 	p.x = x;
 	p.y = y;
 	mul = 1;
 	get_r_and_i(&p, vars);
 	if (key == 4)
-		mul = 0.80;
+		mul = 0.98;
 	else if (key == 5)
-		mul = 1.20;
+		mul = 1.02;
 	x_axis = (vars->x_max - vars->x_min) * mul;
 	y_axis = (vars->y_max - vars->y_min) * mul;
 	vars->x_min = p.r - ((double)p.x * (x_axis / WIDTH));
 	vars->x_max = vars->x_min + x_axis;
-	vars->x_zero = (fabs(vars->x_min) / x_axis) * WIDTH;
+	vars->x_zero = (vars->x_min * -1) * (WIDTH / x_axis);
 	vars->y_max = p.i + ((double)p.y * (y_axis / HEIGHT));
 	vars->y_min = vars->y_max - y_axis;
-	vars->y_zero = (fabs(vars->y_max) / y_axis) * HEIGHT;
-	render_mandelbrot(vars);
+	vars->y_zero = vars->y_max * (HEIGHT / y_axis);
 	return (0);
 }
 

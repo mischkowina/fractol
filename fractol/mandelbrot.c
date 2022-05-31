@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:38:52 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/31 15:48:39 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:13:02 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ int	mandelbrot(char *color)//Bearbeitung text
 
 	if (init_mandelbrot(&vars, color) == 1)
 		return (1);
-	render_mandelbrot(&vars);
+	vars.img.img = mlx_new_image(vars.mlx_ptr, WIDTH, HEIGHT);
+	vars.img.addr = mlx_get_data_addr(vars.img.img, &vars.img.bpp,
+			&vars.img.line_length, &vars.img.endian);
 	mlx_hook(vars.win_ptr, DestroyNotify, NoEventMask, close_fractal, &vars);
 	mlx_hook(vars.win_ptr, KeyPress, KeyPressMask, handle_keypress, &vars);
 	mlx_mouse_hook(vars.win_ptr, handle_mouse, &vars);
-	//mlx_loop_hook(vars.mlx_ptr, render_mandelbrot, &vars);
+	mlx_loop_hook(vars.mlx_ptr, render_mandelbrot, &vars);
 	mlx_loop(vars.mlx_ptr);
 	return (0);
 }
@@ -81,18 +83,16 @@ int	render_mandelbrot(t_vars *vars)//Bearbeitung text
 	t_point	p;
 	t_point	z;
 
+	ft_bzero(vars->img.addr, WIDTH * HEIGHT * sizeof(int));
 	p.x = 0;
 	p.y = 0;
-	vars->img.img = mlx_new_image(vars->mlx_ptr, WIDTH, HEIGHT);
-	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bpp,
-			&vars->img.line_length, &vars->img.endian);
 	while (p.y <= HEIGHT)
 	{
 		p.x = 0;
 		while (p.x <= WIDTH)
 		{
 			z = pixel_mandelbrot(&p, vars);
-			if (check_z(z) >= 4)
+			if (z.res >= 4)
 				vars->f_col(&vars->img, p.x, p.y, z);
 			p.x++;
 		}
@@ -119,16 +119,18 @@ t_point	pixel_mandelbrot(t_point *p, t_vars *vars)
 	z.n = 0;
 	z.r = 0;
 	z.i = 0;
+	z.res = 0;
 	get_r_and_i(p, vars);
 	if (optimize_mandelbrot(p) == 0)
 		return (z);
-	while (z.n < 255 && check_z(z) < 4)
+	while (z.n < 255 && z.res < 4)
 	{
 		tmp.r = z.r;
 		tmp.i = z.i;
 		z.r = (tmp.r * tmp.r) - (tmp.i * tmp.i) + p->r;
 		z.i = (2 * tmp.r * tmp.i) + p->i;
 		z.n++;
+		z.res = check_z(z);
 	}
 	return (z);
 }
