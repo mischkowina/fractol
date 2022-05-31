@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:38:52 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/27 22:21:37 by smischni         ###   ########.fr       */
+/*   Updated: 2022/05/31 15:48:39 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,12 @@ int	mandelbrot(char *color)//Bearbeitung text
 
 	if (init_mandelbrot(&vars, color) == 1)
 		return (1);
+	render_mandelbrot(&vars);
+	mlx_hook(vars.win_ptr, DestroyNotify, NoEventMask, close_fractal, &vars);
 	mlx_hook(vars.win_ptr, KeyPress, KeyPressMask, handle_keypress, &vars);
 	mlx_mouse_hook(vars.win_ptr, handle_mouse, &vars);
-	mlx_loop_hook(vars.mlx_ptr, render_mandelbrot, &vars);
-	render_mandelbrot(&vars);
+	//mlx_loop_hook(vars.mlx_ptr, render_mandelbrot, &vars);
 	mlx_loop(vars.mlx_ptr);
-	mlx_destroy_window(vars.mlx_ptr, vars.win_ptr);
-	mlx_destroy_display(vars.mlx_ptr);
-	free(vars.mlx_ptr);
 	return (0);
 }
 
@@ -54,8 +52,8 @@ int	init_mandelbrot(t_vars *vars, char *color)
 	vars->win_ptr = mlx_new_window(vars->mlx_ptr, WIDTH, HEIGHT, "Mandelbrot");
 	if (!vars->win_ptr)
 	{
-		free(vars->win_ptr);
 		mlx_destroy_display(vars->mlx_ptr);
+		free(vars->win_ptr);
 		free(vars->mlx_ptr);
 		return (1);
 	}
@@ -122,6 +120,8 @@ t_point	pixel_mandelbrot(t_point *p, t_vars *vars)
 	z.r = 0;
 	z.i = 0;
 	get_r_and_i(p, vars);
+	if (optimize_mandelbrot(p) == 0)
+		return (z);
 	while (z.n < 255 && check_z(z) < 4)
 	{
 		tmp.r = z.r;
@@ -131,4 +131,16 @@ t_point	pixel_mandelbrot(t_point *p, t_vars *vars)
 		z.n++;
 	}
 	return (z);
+}
+
+int	optimize_mandelbrot(t_point *p)
+{
+	if (p->r <= 0.2 && p->r >= -0.45 && p->i <= 0.5 && p->i >= -0.5)
+		return (0);
+	else if (p->r <= -0.45 && p->r >= -0.65 && p->i <= 0.3 && p->i >= -0.3)
+		return (0);
+	else if (p->r <= -0.85 && p->r >= -1.15 && p->i <= 0.15 && p->i >= -0.15)
+		return (0);
+	else
+		return (1);
 }
