@@ -6,36 +6,11 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:38:52 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/31 17:34:11 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/01 14:33:38 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-/**
- * Function to display the mandelbrot fractal in the specified color. Calls 
- * functions to initialize the display and initializes an image for the 
- * mandelbrot fractal to be rendered in. Loops the rendering function within
- * the mlx_loop_hook and calls different hook functions in case of events.
- * @param color [char *] String containing the color specified in command line.
- * @return [int] 1 in case of error, 0 if the function worked as expected.
- */
-int	mandelbrot(char *color)
-{
-	t_vars	vars;
-
-	if (init_mandelbrot(&vars, color) == 1)
-		return (1);
-	vars.img.img = mlx_new_image(vars.mlx_ptr, WIDTH, HEIGHT);
-	vars.img.addr = mlx_get_data_addr(vars.img.img, &vars.img.bpp,
-			&vars.img.line_length, &vars.img.endian);
-	mlx_hook(vars.win_ptr, DestroyNotify, NoEventMask, close_fractal, &vars);
-	mlx_hook(vars.win_ptr, KeyPress, KeyPressMask, handle_keypress, &vars);
-	mlx_mouse_hook(vars.win_ptr, handle_mouse, &vars);
-	mlx_loop_hook(vars.mlx_ptr, render_mandelbrot, &vars);
-	mlx_loop(vars.mlx_ptr);
-	return (0);
-}
 
 /**
  * Initializes the connection between software and the display and initializes 
@@ -54,8 +29,8 @@ int	init_mandelbrot(t_vars *vars, char *color)
 	vars->win_ptr = mlx_new_window(vars->mlx_ptr, WIDTH, HEIGHT, "Mandelbrot");
 	if (!vars->win_ptr)
 	{
+		mlx_destroy_window(vars->mlx_ptr, vars->win_ptr);
 		mlx_destroy_display(vars->mlx_ptr);
-		free(vars->win_ptr);
 		free(vars->mlx_ptr);
 		return (1);
 	}
@@ -76,9 +51,8 @@ int	init_mandelbrot(t_vars *vars, char *color)
  * end, the image is pushed to the window.
  * @param img [t_data *] Pointer to the struct containing all image variables.
  * @param vars [t_vars *] Pointer to the struct containing important variables.
- * @return [int] tbd
  */
-int	render_mandelbrot(t_vars *vars)//Bearbeitung Return value
+int	render_mandelbrot(t_vars *vars)
 {
 	t_point	p;
 	t_point	z;

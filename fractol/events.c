@@ -6,13 +6,20 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 14:22:38 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/31 17:21:18 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/01 14:24:49 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
 
+/**
+ * Handles all availabe key events and carries out the respective actions /
+ * calls the repective functions. Available key events are closing via ESC,
+ * moving the view with the arrows and changing the color scheme with the
+ * key 1 - 4.
+ * @param key [int] Defines the key that has been pressed.
+ * @param vars [t_vars *] Pointer to the struct containing important variables.
+*/
 int	handle_keypress(int key, t_vars *vars)
 {
 	if (key == KEY_ESC)
@@ -21,9 +28,23 @@ int	handle_keypress(int key, t_vars *vars)
 		key_right_left(key, vars);
 	else if (key == KEY_UP || key == KEY_DOWN)
 		key_up_down(key, vars);
+	else if (key == KEY_ONE)
+		vars->f_col = color_bernstein;
+	else if (key == KEY_TWO)
+		vars->f_col = color_blue_hour;
+	else if (key == KEY_THREE)
+		vars->f_col = color_golden_hour;
+	else if (key == KEY_FOUR)
+		vars->f_col = color_black_white;
 	return (0);
 }
 
+/**
+ * Handles up and down key events and carries out the respective actions to
+ * move the view.
+ * @param key [int] Defines the key that has been pressed.
+ * @param vars [t_vars *] Pointer to the struct containing important variables.
+*/
 void	key_up_down(int key, t_vars *vars)
 {
 	double	y;
@@ -43,6 +64,12 @@ void	key_up_down(int key, t_vars *vars)
 	}
 }
 
+/**
+ * Handles right and left key events and carries out the respective actions to
+ * move the view.
+ * @param key [int] Defines the key that has been pressed.
+ * @param vars [t_vars *] Pointer to the struct containing important variables.
+*/
 void	key_right_left(int key, t_vars *vars)
 {
 	double	x;
@@ -62,6 +89,15 @@ void	key_right_left(int key, t_vars *vars)
 	}
 }
 
+/**
+ * Handles all available mouse events except for closing the window. Bye using
+ * the scroll wheel of the mouse, the view zooms in or out, focussing on the 
+ * pixel pointed on by the mouse pointer.
+ * @param key [int] Defines the key that has been pressed.
+ * @param x [int] x-coordinate of the pixel the mouse is pointing on.
+ * @param y [int] y-coordinate of the pixel the mouse is pointing on.
+ * @param vars [t_vars *] Pointer to the struct containing important variables.
+*/
 int	handle_mouse(int key, int x, int y, t_vars *vars)
 {
 	double	x_axis;
@@ -79,15 +115,20 @@ int	handle_mouse(int key, int x, int y, t_vars *vars)
 		mul = 1.02;
 	x_axis = (vars->x_max - vars->x_min) * mul;
 	y_axis = (vars->y_max - vars->y_min) * mul;
-	vars->x_min = p.r - ((double)p.x * (x_axis / WIDTH));
+	vars->x_min = p.r - (p.x * (x_axis / WIDTH));
 	vars->x_max = vars->x_min + x_axis;
 	vars->x_zero = (vars->x_min * -1) * (WIDTH / x_axis);
-	vars->y_max = p.i + ((double)p.y * (y_axis / HEIGHT));
+	vars->y_max = p.i + (p.y * (y_axis / HEIGHT));
 	vars->y_min = vars->y_max - y_axis;
 	vars->y_zero = vars->y_max * (HEIGHT / y_axis);
 	return (0);
 }
 
+/**
+ * Function that closes the program and frees everything properly. Gets called
+ * when either the ESC key or the red cross button of the window is pressed.
+ * @param vars [t_vars *] Pointer to the struct containing important variables.
+*/
 int	close_fractal(t_vars *vars)
 {
 	mlx_destroy_image(vars->mlx_ptr, vars->img.img);

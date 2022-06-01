@@ -6,13 +6,13 @@
 #    By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 16:30:01 by smischni          #+#    #+#              #
-#    Updated: 2022/05/26 14:27:06 by smischni         ###   ########.fr        #
+#    Updated: 2022/06/01 12:55:02 by smischni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ## ggf. anpassen und mlx nicht mit compilen & pushen ##
 
-SRCS		=	fractol.c \
+SRCS		=	main.c \
 				utils.c \
 				colors.c \
 				events.c \
@@ -24,7 +24,7 @@ OBJS		=	$(SRCS:.c=.o)
 BONUS_OBJS	=	$(BONUS:.c=.o)
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g
 
 
 NAME		=	fractol

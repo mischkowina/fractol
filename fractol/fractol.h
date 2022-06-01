@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:32:56 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/31 17:00:44 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/01 14:11:04 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # define KEY_RIGHT		65363
 # define KEY_UP			65362
 # define KEY_DOWN		65364
+# define KEY_ONE		49
+# define KEY_TWO		50
+# define KEY_THREE		51
+# define KEY_FOUR		52
 
 typedef struct s_point {
 	int		x;
@@ -45,6 +49,9 @@ typedef struct s_data {
 
 typedef struct s_vars
 {
+	int		(*f_init)(struct s_vars *vars, char *color);
+	int		(*f_render)(struct s_vars *vars);
+	void	(*f_col)(t_data *img, int x, int y, t_point z);
 	void	*mlx_ptr;
 	void	*win_ptr;
 	double	x_max;
@@ -53,19 +60,17 @@ typedef struct s_vars
 	double	y_min;
 	int		x_zero;
 	int		y_zero;
-	void	(*f_col)(t_data *img, int x, int y, t_point z);
 	t_data	img;
 }				t_vars;
 
 void	display_options(void);
-int		check_valid_arg_2(char *arg);
+int		check_valid_arg(char **argv);
+int		fractal(t_vars *vars, char *color);
 
-int		mandelbrot(char *color);
 int		init_mandelbrot(t_vars *vars, char *color);
 int		render_mandelbrot(t_vars *vars);
 t_point	pixel_mandelbrot(t_point *p, t_vars *vars);
 int		optimize_mandelbrot(t_point *p);
-int		loop(t_vars *vars);
 
 void	julia(char *color);
 
