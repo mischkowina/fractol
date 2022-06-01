@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:30:22 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/01 14:21:25 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/01 15:11:31 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 		}
 		else if (ft_strncmp(argv[1], "julia", 7) == 0)
 		{
-			julia(argv[2]);
+			julia(argv[2]);//change
 		}
 	}
 	fractal(&vars, argv[2]);
