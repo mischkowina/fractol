@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:32:56 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/01 14:11:04 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:00:04 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_data {
 typedef struct s_vars
 {
 	int		(*f_init)(struct s_vars *vars, char *color);
-	int		(*f_render)(struct s_vars *vars);
+	t_point	(*f_render)(t_point *p, struct s_vars *vars);
 	void	(*f_col)(t_data *img, int x, int y, t_point z);
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -63,16 +63,17 @@ typedef struct s_vars
 	t_data	img;
 }				t_vars;
 
+int		fractal(t_vars *vars, char *color);
+int		render(t_vars *vars);
 void	display_options(void);
 int		check_valid_arg(char **argv);
-int		fractal(t_vars *vars, char *color);
 
 int		init_mandelbrot(t_vars *vars, char *color);
-int		render_mandelbrot(t_vars *vars);
-t_point	pixel_mandelbrot(t_point *p, t_vars *vars);
+t_point	render_mandelbrot(t_point *p, t_vars *vars);
 int		optimize_mandelbrot(t_point *p);
 
-void	julia(char *color);
+int		init_julia1(t_vars *vars, char *color);
+t_point	render_julia1(t_point *p, t_vars *vars);
 
 int		handle_keypress(int keysym, t_vars *vars);
 void	key_up_down(int key, t_vars *vars);

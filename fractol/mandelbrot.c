@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:38:52 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/01 14:33:38 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/03 16:56:38 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,38 +45,6 @@ int	init_mandelbrot(t_vars *vars, char *color)
 }
 
 /**
- * First clears the image. Then iterates through each pixel of the image and 
- * determines if it lies within the mandelbrot set or outside of it. In case 
- * it lies outside, calls the respective function to color the pixel. In the 
- * end, the image is pushed to the window.
- * @param img [t_data *] Pointer to the struct containing all image variables.
- * @param vars [t_vars *] Pointer to the struct containing important variables.
- */
-int	render_mandelbrot(t_vars *vars)
-{
-	t_point	p;
-	t_point	z;
-
-	ft_bzero(vars->img.addr, WIDTH * HEIGHT * sizeof(int));
-	p.x = 0;
-	p.y = 0;
-	while (p.y <= HEIGHT)
-	{
-		p.x = 0;
-		while (p.x <= WIDTH)
-		{
-			z = pixel_mandelbrot(&p, vars);
-			if (z.res >= 4)
-				vars->f_col(&vars->img, p.x, p.y, z);
-			p.x++;
-		}
-		p.y++;
-	}
-	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->img.img, 0, 0);
-	return (0);
-}
-
-/**
  * Applies the mandelbrot formula to a single pixel, determining its 
  * coordinates on the complex plane and respectively checking whether
  * it lies within the mandelbrot-set or outside of it and how many 
@@ -85,7 +53,7 @@ int	render_mandelbrot(t_vars *vars)
  * @param vars [t_vars *] Pointer to the struct containing important variables.
  * @return [t_point] Struct describing the resp. z in the mandelbrot-formula.
  */
-t_point	pixel_mandelbrot(t_point *p, t_vars *vars)
+t_point	render_mandelbrot(t_point *p, t_vars *vars)
 {
 	t_point	z;
 	t_point	tmp;

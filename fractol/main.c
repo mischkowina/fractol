@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:30:22 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/01 15:11:31 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:00:31 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	main(int argc, char **argv)
 		}
 		else if (ft_strncmp(argv[1], "julia", 7) == 0)
 		{
-			julia(argv[2]);//change
+			vars.f_init = init_julia1;
+			vars.f_render = render_julia1;
 		}
 	}
 	fractal(&vars, argv[2]);
@@ -55,8 +56,40 @@ int	fractal(t_vars *vars, char *color)
 	mlx_hook(vars->win_ptr, DestroyNotify, NoEventMask, close_fractal, vars);
 	mlx_hook(vars->win_ptr, KeyPress, KeyPressMask, handle_keypress, vars);
 	mlx_mouse_hook(vars->win_ptr, handle_mouse, vars);
-	mlx_loop_hook(vars->mlx_ptr, vars->f_render, vars);
+	mlx_loop_hook(vars->mlx_ptr, render, vars);
 	mlx_loop(vars->mlx_ptr);
+	return (0);
+}
+
+/**
+ * First clears the image. Then iterates through each pixel of the image and 
+ * determines if it lies within the mandelbrot set or outside of it. In case 
+ * it lies outside, calls the respective function to color the pixel. In the 
+ * end, the image is pushed to the window.
+ * @param img [t_data *] Pointer to the struct containing all image variables.
+ * @param vars [t_vars *] Pointer to the struct containing important variables.
+ */
+int	render(t_vars *vars)
+{
+	t_point	p;
+	t_point	z;
+
+	ft_bzero(vars->img.addr, WIDTH * HEIGHT * sizeof(int));
+	p.x = 0;
+	p.y = 0;
+	while (p.y <= HEIGHT)
+	{
+		p.x = 0;
+		while (p.x <= WIDTH)
+		{
+			z = vars->f_render(&p, vars);
+			if (z.res >= 4)
+				vars->f_col(&vars->img, p.x, p.y, z);
+			p.x++;
+		}
+		p.y++;
+	}
+	mlx_put_image_to_window(vars->mlx_ptr, vars->win_ptr, vars->img.img, 0, 0);
 	return (0);
 }
 
