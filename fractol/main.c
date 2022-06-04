@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:30:22 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/04 19:18:57 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:28:33 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
  * First checks if command line arguments are valid. If not, it displays the
  * valid options within the terminal. If the input is valid, it sets the
  * function pointers in t_vars vars according to the arguments specifying the
- * fractals as well as the color scheme. Lastly, calls the function to 
- * initialize mlx and render the fractal.
+ * fractals. Lastly, calls the function to initialize mlx and render the fractal.
  * @param argc [int] Number of command line arguments.
  * @param argv [char **] String array containing the command line arguments.
  */
@@ -43,6 +42,13 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
+/**
+ * Sets the function pointers in t_vars vars according to the arguments 
+ * specifying the fractal.
+ * @param arg [char *] First argument string containing the fractal type.
+ * @param vars [t_vars *] Pointer to the struct containing important variables.
+ * @return [int] Returns 0 if function pointers were set succesfully. Else 1.
+ */
 int	set_function_pointer(char *arg, t_vars *vars)
 {
 	if (ft_strncmp(arg, "mandelbrot", 12) == 0)
