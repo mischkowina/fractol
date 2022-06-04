@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 17:04:39 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/04 17:56:44 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/04 18:53:17 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,23 @@ int	init_burning_ship(t_vars *vars, char *color)
  * necessary to break out of the burning-ship-area.
  * @param p [t_point *] Pointer to variables describing a pixel on the display.
  * @param vars [t_vars *] Pointer to the struct containing important variables.
- * @return [t_point] Struct describing the resp. z in the mandelbrot-formula.
  */
-t_point	render_burning_ship(t_point *p, t_vars *vars)
+void	render_burning_ship(t_point *p, t_vars *vars)
 {
-	t_point	z;
 	t_point	tmp;
 
-	z.n = 0;
-	z.r = 0;
-	z.i = 0;
-	z.res = 0;
+	vars->z.n = 0;
+	vars->z.r = 0;
+	vars->z.i = 0;
+	vars->z.res = 0;
 	get_r_and_i(p, vars);
-	while (z.n < 255 && z.res < 4)
+	while (vars->z.n < 255 && vars->z.res < 4)
 	{
-		tmp.r = z.r;
-		tmp.i = z.i;
-		z.r = (tmp.r * tmp.r) - (tmp.i * tmp.i) - p->r;
-		z.i = 2 * fabs(tmp.r * tmp.i) - p->i;
-		z.n++;
-		z.res = check_z(z);
+		tmp.r = vars->z.r;
+		tmp.i = vars->z.i;
+		vars->z.r = (tmp.r * tmp.r) - (tmp.i * tmp.i) - p->r;
+		vars->z.i = 2 * fabs(tmp.r * tmp.i) - p->i;
+		vars->z.n++;
+		vars->z.res = check_z(vars);
 	}
-	return (z);
 }

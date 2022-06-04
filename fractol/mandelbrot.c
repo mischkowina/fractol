@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:38:52 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/03 16:56:38 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/04 18:54:52 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,27 @@ int	init_mandelbrot(t_vars *vars, char *color)
  * iterations are necessary to break out of the mandelbrot-area.
  * @param p [t_point *] Pointer to variables describing a pixel on the display.
  * @param vars [t_vars *] Pointer to the struct containing important variables.
- * @return [t_point] Struct describing the resp. z in the mandelbrot-formula.
  */
-t_point	render_mandelbrot(t_point *p, t_vars *vars)
+void	render_mandelbrot(t_point *p, t_vars *vars)
 {
-	t_point	z;
 	t_point	tmp;
 
-	z.n = 0;
-	z.r = 0;
-	z.i = 0;
-	z.res = 0;
+	vars->z.n = 0;
+	vars->z.r = 0;
+	vars->z.i = 0;
+	vars->z.res = 0;
 	get_r_and_i(p, vars);
 	if (optimize_mandelbrot(p) == 0)
-		return (z);
-	while (z.n < 255 && z.res < 4)
+		return ;
+	while (vars->z.n < 255 && vars->z.res < 4)
 	{
-		tmp.r = z.r;
-		tmp.i = z.i;
-		z.r = (tmp.r * tmp.r) - (tmp.i * tmp.i) + p->r;
-		z.i = (2 * tmp.r * tmp.i) + p->i;
-		z.n++;
-		z.res = check_z(z);
+		tmp.r = vars->z.r;
+		tmp.i = vars->z.i;
+		vars->z.r = (tmp.r * tmp.r) - (tmp.i * tmp.i) + p->r;
+		vars->z.i = (2 * tmp.r * tmp.i) + p->i;
+		vars->z.n++;
+		vars->z.res = check_z(vars);
 	}
-	return (z);
 }
 
 /**

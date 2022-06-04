@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:18:30 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/04 17:17:42 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:02:46 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ void	get_r_and_i(t_point *p, t_vars *vars)
  * the complex part r.i). Enables to check whether the point lies within or 
  * outside the mandelbrot-set, since it lies outside when z >= 2 (or z^2 >= 4,
  * respectively).
- * @param z [t_point] Struct describing a value 'z' in the mandelbrot-formula.
+ * @param vars [t_vars *] Pointer to the struct containing important variables.
  * @return [double] Returns the value of z^2
  */
-double	check_z(t_point z)
+double	check_z(t_vars *vars)
 {
 	double	res;
 
-	res = (z.r * z.r + z.i * z.i);
+	res = (vars->z.r * vars->z.r + vars->z.i * vars->z.i);
 	return (res);
 }
 
@@ -74,41 +74,4 @@ double	check_z(t_point z)
 int	create_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
-}
-
-/**
- * Checks whether the arguments in the argument array are valid.
- * @param argv [char **] String array containing the command line arguments.
- * @return [int] Returns 0 if both arguments are valid, else returns 1.
-*/
-int	check_valid_arg(char **argv)
-{
-	if (!argv)
-		return (1);
-	if (ft_strncmp(argv[1], "mandelbrot", 11) != 0)
-	{
-		if (ft_strncmp(argv[1], "julia_1", 8) != 0)
-		{
-			if (ft_strncmp(argv[1], "julia_2", 8) != 0)
-			{
-				if (ft_strncmp(argv[1], "julia_3", 8) != 0)
-				{
-					if (ft_strncmp(argv[1], "burning_ship", 13) != 0)
-						return (1);
-				}
-			}
-		}
-	}
-	if (ft_strncmp(argv[2], "bernstein", 11) != 0)
-	{
-		if (ft_strncmp(argv[2], "blue_hour", 11) != 0)
-		{
-			if (ft_strncmp(argv[2], "golden_hour", 13) != 0)
-			{
-				if (ft_strncmp(argv[2], "black/white", 13) != 0)
-					return (1);
-			}
-		}
-	}
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:32:56 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/04 17:15:59 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:19:45 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_data {
 typedef struct s_vars
 {
 	int		(*f_init)(struct s_vars *vars, char *color);
-	t_point	(*f_render)(t_point *p, struct s_vars *vars);
+	void	(*f_render)(t_point *p, struct s_vars *vars);
 	void	(*f_col)(t_data *img, int x, int y, t_point z);
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -63,23 +63,28 @@ typedef struct s_vars
 	double	r;
 	double	i;
 	t_data	img;
+	t_point	z;
 }				t_vars;
 
+int		set_function_pointer(char *arg, t_vars *vars);
 int		fractal(t_vars *vars, char *color);
 int		render(t_vars *vars);
 void	display_options(void);
+
 int		check_valid_arg(char **argv);
+int		check_arg1(char *arg);
+int		check_arg2(char *arg);
 
 int		init_mandelbrot(t_vars *vars, char *color);
-t_point	render_mandelbrot(t_point *p, t_vars *vars);
+void	render_mandelbrot(t_point *p, t_vars *vars);
 int		optimize_mandelbrot(t_point *p);
 
 int		init_julia(t_vars *vars, char *color);
 int		julia_options(char *arg, t_vars *vars);
-t_point	render_julia(t_point *p, t_vars *vars);
+void	render_julia(t_point *p, t_vars *vars);
 
 int		init_burning_ship(t_vars *vars, char *color);
-t_point	render_burning_ship(t_point *p, t_vars *vars);
+void	render_burning_ship(t_point *p, t_vars *vars);
 
 int		handle_keypress(int keysym, t_vars *vars);
 void	key_up_down(int key, t_vars *vars);
@@ -89,7 +94,7 @@ int		close_fractal(t_vars *vars);
 
 void	ft_mlx_pixel_put(t_data *img, int x, int y, int color);
 void	get_r_and_i(t_point *p, t_vars *vars);
-double	check_z(t_point z);
+double	check_z(t_vars *vars);
 int		create_trgb(unsigned int t, unsigned int r,
 			unsigned int g, unsigned int b);
 

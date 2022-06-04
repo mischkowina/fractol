@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:40:09 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/04 16:38:20 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/04 18:53:48 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,26 +79,23 @@ int	julia_options(char *arg, t_vars *vars)
  * out of the julia-area.
  * @param p [t_point *] Pointer to variables describing a pixel on the display.
  * @param vars [t_vars *] Pointer to the struct containing important variables.
- * @return [t_point] Struct describing the resp. z in the mandelbrot-formula.
  */
-t_point	render_julia(t_point *p, t_vars *vars)
+void	render_julia(t_point *p, t_vars *vars)
 {
-	t_point	z;
 	t_point	tmp;
 
 	get_r_and_i(p, vars);
-	z.n = 0;
-	z.r = p->r;
-	z.i = p->i;
-	z.res = check_z(z);
-	while (z.n < 255 && z.res < 4)
+	vars->z.n = 0;
+	vars->z.r = p->r;
+	vars->z.i = p->i;
+	vars->z.res = check_z(vars);
+	while (vars->z.n < 255 && vars->z.res < 4)
 	{
-		tmp.r = z.r;
-		tmp.i = z.i;
-		z.r = (tmp.r * tmp.r) - (tmp.i * tmp.i) + vars->r;
-		z.i = (2 * tmp.r * tmp.i) + vars->i;
-		z.n++;
-		z.res = check_z(z);
+		tmp.r = vars->z.r;
+		tmp.i = vars->z.i;
+		vars->z.r = (tmp.r * tmp.r) - (tmp.i * tmp.i) + vars->r;
+		vars->z.i = (2 * tmp.r * tmp.i) + vars->i;
+		vars->z.n++;
+		vars->z.res = check_z(vars);
 	}
-	return (z);
 }

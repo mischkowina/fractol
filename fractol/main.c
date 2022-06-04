@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:30:22 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/04 17:19:20 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:18:57 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		if (ft_strncmp(argv[1], "mandelbrot", 12) == 0)
-		{
-			vars.f_init = init_mandelbrot;
-			vars.f_render = render_mandelbrot;
-		}
-		else if (ft_strncmp(argv[1], "julia", 5) == 0)
-		{
-			if (julia_options(argv[1], &vars) == 1)
-			{
-				display_options();
-				return (0);
-			}
-		}
-		else if (ft_strncmp(argv[1], "burning_ship", 13) == 0)
-		{
-			vars.f_init = init_burning_ship;
-			vars.f_render = render_burning_ship;
-		}
-		else
+		if (set_function_pointer(argv[1], &vars) == 1)
 		{
 			display_options();
 			return (0);
@@ -59,6 +41,35 @@ int	main(int argc, char **argv)
 	if (fractal(&vars, argv[2]) == 1)
 		write(2, "Error\n", 6);
 	return (0);
+}
+
+int	set_function_pointer(char *arg, t_vars *vars)
+{
+	if (ft_strncmp(arg, "mandelbrot", 12) == 0)
+	{
+		vars->f_init = init_mandelbrot;
+		vars->f_render = render_mandelbrot;
+		return (0);
+	}
+	else if (ft_strncmp(arg, "julia", 5) == 0)
+	{
+		if (julia_options(arg, vars) == 1)
+		{
+			return (1);
+		}
+		else
+			return (0);
+	}
+	else if (ft_strncmp(arg, "burning_ship", 13) == 0)
+	{
+		vars->f_init = init_burning_ship;
+		vars->f_render = render_burning_ship;
+		return (0);
+	}
+	else
+	{
+		return (1);
+	}
 }
 
 /**
@@ -95,7 +106,6 @@ int	fractal(t_vars *vars, char *color)
 int	render(t_vars *vars)
 {
 	t_point	p;
-	t_point	z;
 
 	ft_bzero(vars->img.addr, WIDTH * HEIGHT * sizeof(int));
 	p.x = 0;
@@ -105,9 +115,9 @@ int	render(t_vars *vars)
 		p.x = 0;
 		while (p.x <= WIDTH)
 		{
-			z = vars->f_render(&p, vars);
-			if (z.res >= 4)
-				vars->f_col(&vars->img, p.x, p.y, z);
+			vars->f_render(&p, vars);
+			if (vars->z.res >= 4)
+				vars->f_col(&vars->img, p.x, p.y, vars->z);
 			p.x++;
 		}
 		p.y++;

@@ -6,13 +6,12 @@
 #    By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 16:30:01 by smischni          #+#    #+#              #
-#    Updated: 2022/06/04 17:19:45 by smischni         ###   ########.fr        #
+#    Updated: 2022/06/04 19:03:44 by smischni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-## ggf. anpassen und mlx nicht mit compilen & pushen ##
-
 SRCS		=	main.c \
+				input_validation.c \
 				utils.c \
 				colors.c \
 				events.c \
@@ -21,8 +20,6 @@ SRCS		=	main.c \
 				burning_ship.c
 
 OBJS		=	$(SRCS:.c=.o)
-
-BONUS_OBJS	=	$(BONUS:.c=.o)
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -g
