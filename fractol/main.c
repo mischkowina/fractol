@@ -6,12 +6,21 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:30:22 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/04 16:05:07 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/04 17:19:20 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+/**
+ * First checks if command line arguments are valid. If not, it displays the
+ * valid options within the terminal. If the input is valid, it sets the
+ * function pointers in t_vars vars according to the arguments specifying the
+ * fractals as well as the color scheme. Lastly, calls the function to 
+ * initialize mlx and render the fractal.
+ * @param argc [int] Number of command line arguments.
+ * @param argv [char **] String array containing the command line arguments.
+ */
 int	main(int argc, char **argv)
 {
 	t_vars	vars;
@@ -30,29 +39,34 @@ int	main(int argc, char **argv)
 		}
 		else if (ft_strncmp(argv[1], "julia", 5) == 0)
 		{
-			vars.f_init = init_julia;
-			if (ft_strncmp(argv[1], "julia_1", 8) == 0)
-				vars.f_render = render_julia1;
-			else if (ft_strncmp(argv[1], "julia_2", 8) == 0)
-				vars.f_render = render_julia2;
-			else if (ft_strncmp(argv[1], "julia_3", 8) == 0)
-				vars.f_render = render_julia3;
-			else
+			if (julia_options(argv[1], &vars) == 1)
 			{
 				display_options();
 				return (0);
 			}
 		}
+		else if (ft_strncmp(argv[1], "burning_ship", 13) == 0)
+		{
+			vars.f_init = init_burning_ship;
+			vars.f_render = render_burning_ship;
+		}
+		else
+		{
+			display_options();
+			return (0);
+		}
 	}
-	fractal(&vars, argv[2]);
+	if (fractal(&vars, argv[2]) == 1)
+		write(2, "Error\n", 6);
 	return (0);
 }
 
 /**
- * Function to display the mandelbrot fractal in the specified color. Calls 
- * functions to initialize the display and initializes an image for the 
- * mandelbrot fractal to be rendered in. Loops the rendering function within
- * the mlx_loop_hook and calls different hook functions in case of events.
+ * Function to display the fractal in the specified color. Calls functions to
+ * initialize the display and initializes an image for the fractal to be 
+ * rendered in. Loops the rendering function within the mlx_loop_hook and calls
+ * different hook functions in case of events.
+ * @param vars [t_vars *] Pointer to the struct containing important variables.
  * @param color [char *] String containing the color specified in command line.
  * @return [int] 1 in case of error, 0 if the function worked as expected.
  */
@@ -73,10 +87,9 @@ int	fractal(t_vars *vars, char *color)
 
 /**
  * First clears the image. Then iterates through each pixel of the image and 
- * determines if it lies within the mandelbrot set or outside of it. In case 
- * it lies outside, calls the respective function to color the pixel. In the 
- * end, the image is pushed to the window.
- * @param img [t_data *] Pointer to the struct containing all image variables.
+ * determines if it lies within the fractal set or outside of it by calling the
+ * fractals rendering function. In case it lies outside, calls the respective 
+ * function to color the pixel. In the end, the image is pushed to the window.
  * @param vars [t_vars *] Pointer to the struct containing important variables.
  */
 int	render(t_vars *vars)
@@ -117,7 +130,8 @@ void	display_options(void)
 	ft_printf("* mandelbrot\n");
 	ft_printf("* julia_1\n");
 	ft_printf("* julia_2\n");
-	ft_printf("* julia_3\n\n");
+	ft_printf("* julia_3\n");
+	ft_printf("* burning_ship\n\n");
 	while (i++ < 92)
 		ft_printf("-");
 	i = 0;
@@ -132,40 +146,5 @@ void	display_options(void)
 	ft_printf("\nrun \"./fractol <fractal name> <color scheme>\"\n");
 	while (i++ < 92)
 		ft_printf("-");
-	i = 0;
 	ft_printf("\n\n");
-}
-
-/**
- * Checks whether the arguments in the argument array are valid.
- * @param argv [char **] String array containing the command line arguments.
- * @return [int] Returns 0 if both arguments are valid, else returns 1.
-*/
-int	check_valid_arg(char **argv)
-{
-	if (!argv)
-		return (1);
-	if (ft_strncmp(argv[1], "mandelbrot", 12) != 0)
-	{
-		if (ft_strncmp(argv[1], "julia_1", 7) != 0)
-		{
-			if (ft_strncmp(argv[1], "julia_2", 7) != 0)
-			{
-				if (ft_strncmp(argv[1], "julia_3", 7) != 0)
-					return (1);
-			}
-		}
-	}
-	if (ft_strncmp(argv[2], "bernstein", 11) != 0)
-	{
-		if (ft_strncmp(argv[2], "blue_hour", 11) != 0)
-		{
-			if (ft_strncmp(argv[2], "golden_hour", 13) != 0)
-			{
-				if (ft_strncmp(argv[2], "black/white", 13) != 0)
-					return (1);
-			}
-		}
-	}
-	return (0);
 }

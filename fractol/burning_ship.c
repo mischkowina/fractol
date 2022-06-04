@@ -1,16 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia.c                                            :+:      :+:    :+:   */
+/*   burning_ship.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/14 15:40:09 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/04 16:38:20 by smischni         ###   ########.fr       */
+/*   Created: 2022/06/04 17:04:39 by smischni          #+#    #+#             */
+/*   Updated: 2022/06/04 17:56:44 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "fractol.h"
 
 #include "fractol.h"
 
@@ -23,12 +21,12 @@
  * @param color [char *] String containing the color specified in command line.
  * @return [int] 1 in case of error, 0 if the function worked as expected.
  */
-int	init_julia(t_vars *vars, char *color)
+int	init_burning_ship(t_vars *vars, char *color)
 {
 	vars->mlx_ptr = mlx_init();
 	if (!vars->mlx_ptr)
 		return (1);
-	vars->win_ptr = mlx_new_window(vars->mlx_ptr, WIDTH, HEIGHT, "Julia 1");
+	vars->win_ptr = mlx_new_window(vars->mlx_ptr, WIDTH, HEIGHT, "Mandelbrot");
 	if (!vars->win_ptr)
 	{
 		mlx_destroy_window(vars->mlx_ptr, vars->win_ptr);
@@ -37,66 +35,40 @@ int	init_julia(t_vars *vars, char *color)
 		return (1);
 	}
 	determine_color(vars, color);
-	vars->x_max = 1.8;
-	vars->x_min = -1.8;
-	vars->y_max = 1.2;
-	vars->y_min = -1.2;
-	vars->x_zero = 720;
-	vars->y_zero = 540;
+	vars->x_max = 2;
+	vars->x_min = -1;
+	vars->y_max = 2;
+	vars->y_min = -1;
+	vars->x_zero = 480;
+	vars->y_zero = 720;
 	return (0);
 }
 
-int	julia_options(char *arg, t_vars *vars)
-{
-	vars->f_init = init_julia;
-	vars->f_render = render_julia;
-	if (ft_strncmp(arg, "julia_1", 8) == 0)
-	{
-		vars->r = -0.76;
-		vars->i = -0.08;
-		return (0);
-	}
-	else if (ft_strncmp(arg, "julia_2", 8) == 0)
-	{
-		vars->r = -1.09;
-		vars->i = 0.252;
-		return (0);
-	}
-	else if (ft_strncmp(arg, "julia_3", 8) == 0)
-	{
-		vars->r = 0.1071;
-		vars->i = 0.5991;
-		return (0);
-	}
-	else
-		return (1);
-}
-
 /**
- * Applies the julia formula to a single pixel, determining its coordinates on 
- * the complex plane and respectively checking whether it lies within the 
- * julia-set or outside of it and how many iterations are necessary to break 
- * out of the julia-area.
+ * Applies the burning-ship formula to a single pixel, determining its 
+ * coordinates on the complex plane and respectively checking whether it lies 
+ * within the burning ship or outside of it and how many iterations are 
+ * necessary to break out of the burning-ship-area.
  * @param p [t_point *] Pointer to variables describing a pixel on the display.
  * @param vars [t_vars *] Pointer to the struct containing important variables.
  * @return [t_point] Struct describing the resp. z in the mandelbrot-formula.
  */
-t_point	render_julia(t_point *p, t_vars *vars)
+t_point	render_burning_ship(t_point *p, t_vars *vars)
 {
 	t_point	z;
 	t_point	tmp;
 
-	get_r_and_i(p, vars);
 	z.n = 0;
-	z.r = p->r;
-	z.i = p->i;
-	z.res = check_z(z);
+	z.r = 0;
+	z.i = 0;
+	z.res = 0;
+	get_r_and_i(p, vars);
 	while (z.n < 255 && z.res < 4)
 	{
 		tmp.r = z.r;
 		tmp.i = z.i;
-		z.r = (tmp.r * tmp.r) - (tmp.i * tmp.i) + vars->r;
-		z.i = (2 * tmp.r * tmp.i) + vars->i;
+		z.r = (tmp.r * tmp.r) - (tmp.i * tmp.i) - p->r;
+		z.i = 2 * fabs(tmp.r * tmp.i) - p->i;
 		z.n++;
 		z.res = check_z(z);
 	}

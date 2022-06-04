@@ -6,7 +6,7 @@
 #    By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 16:30:01 by smischni          #+#    #+#              #
-#    Updated: 2022/06/01 12:55:02 by smischni         ###   ########.fr        #
+#    Updated: 2022/06/04 17:19:45 by smischni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SRCS		=	main.c \
 				colors.c \
 				events.c \
 				mandelbrot.c \
-				julia.c
+				julia.c \
+				burning_ship.c
 
 OBJS		=	$(SRCS:.c=.o)
 

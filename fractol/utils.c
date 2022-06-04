@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:18:30 by smischni          #+#    #+#             */
-/*   Updated: 2022/05/27 21:44:37 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/04 17:17:42 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,41 @@ double	check_z(t_point z)
 int	create_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
+}
+
+/**
+ * Checks whether the arguments in the argument array are valid.
+ * @param argv [char **] String array containing the command line arguments.
+ * @return [int] Returns 0 if both arguments are valid, else returns 1.
+*/
+int	check_valid_arg(char **argv)
+{
+	if (!argv)
+		return (1);
+	if (ft_strncmp(argv[1], "mandelbrot", 11) != 0)
+	{
+		if (ft_strncmp(argv[1], "julia_1", 8) != 0)
+		{
+			if (ft_strncmp(argv[1], "julia_2", 8) != 0)
+			{
+				if (ft_strncmp(argv[1], "julia_3", 8) != 0)
+				{
+					if (ft_strncmp(argv[1], "burning_ship", 13) != 0)
+						return (1);
+				}
+			}
+		}
+	}
+	if (ft_strncmp(argv[2], "bernstein", 11) != 0)
+	{
+		if (ft_strncmp(argv[2], "blue_hour", 11) != 0)
+		{
+			if (ft_strncmp(argv[2], "golden_hour", 13) != 0)
+			{
+				if (ft_strncmp(argv[2], "black/white", 13) != 0)
+					return (1);
+			}
+		}
+	}
+	return (0);
 }
