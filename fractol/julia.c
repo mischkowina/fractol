@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:40:09 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/03 18:34:45 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/04 16:06:31 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /**
  * blabla
  */
-int	init_julia1(t_vars *vars, char *color)
+int	init_julia(t_vars *vars, char *color)
 {
 	vars->mlx_ptr = mlx_init();
 	if (!vars->mlx_ptr)
@@ -55,7 +55,59 @@ t_point	render_julia1(t_point *p, t_vars *vars)
 	z.r = p->r;
 	z.i = p->i;
 	r = -0.76;
-	i = 0.0835;
+	i = -0.08;
+	z.res = check_z(z);
+	while (z.n < 255 && z.res < 4)
+	{
+		tmp.r = z.r;
+		tmp.i = z.i;
+		z.r = (tmp.r * tmp.r) - (tmp.i * tmp.i) + r;
+		z.i = (2 * tmp.r * tmp.i) + i;
+		z.n++;
+		z.res = check_z(z);
+	}
+	return (z);
+}
+
+t_point	render_julia2(t_point *p, t_vars *vars)
+{
+	t_point	z;
+	t_point	tmp;
+	double	r;
+	double	i;
+
+	get_r_and_i(p, vars);
+	z.n = 0;
+	z.r = p->r;
+	z.i = p->i;
+	r = -1.09;
+	i = 0.252;
+	z.res = check_z(z);
+	while (z.n < 255 && z.res < 4)
+	{
+		tmp.r = z.r;
+		tmp.i = z.i;
+		z.r = (tmp.r * tmp.r) - (tmp.i * tmp.i) + r;
+		z.i = (2 * tmp.r * tmp.i) + i;
+		z.n++;
+		z.res = check_z(z);
+	}
+	return (z);
+}
+
+t_point	render_julia3(t_point *p, t_vars *vars)
+{
+	t_point	z;
+	t_point	tmp;
+	double	r;
+	double	i;
+
+	get_r_and_i(p, vars);
+	z.n = 0;
+	z.r = p->r;
+	z.i = p->i;
+	r = 0.1071;
+	i = 0.5991;
 	z.res = check_z(z);
 	while (z.n < 255 && z.res < 4)
 	{

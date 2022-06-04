@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:32:56 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/03 17:00:04 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/04 15:56:33 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,10 @@ int		init_mandelbrot(t_vars *vars, char *color);
 t_point	render_mandelbrot(t_point *p, t_vars *vars);
 int		optimize_mandelbrot(t_point *p);
 
-int		init_julia1(t_vars *vars, char *color);
+int		init_julia(t_vars *vars, char *color);
 t_point	render_julia1(t_point *p, t_vars *vars);
+t_point	render_julia2(t_point *p, t_vars *vars);
+t_point	render_julia3(t_point *p, t_vars *vars);
 
 int		handle_keypress(int keysym, t_vars *vars);
 void	key_up_down(int key, t_vars *vars);

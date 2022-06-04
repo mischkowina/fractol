@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:30:22 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/03 17:00:31 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/04 16:05:07 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,20 @@ int	main(int argc, char **argv)
 			vars.f_init = init_mandelbrot;
 			vars.f_render = render_mandelbrot;
 		}
-		else if (ft_strncmp(argv[1], "julia", 7) == 0)
+		else if (ft_strncmp(argv[1], "julia", 5) == 0)
 		{
-			vars.f_init = init_julia1;
-			vars.f_render = render_julia1;
+			vars.f_init = init_julia;
+			if (ft_strncmp(argv[1], "julia_1", 8) == 0)
+				vars.f_render = render_julia1;
+			else if (ft_strncmp(argv[1], "julia_2", 8) == 0)
+				vars.f_render = render_julia2;
+			else if (ft_strncmp(argv[1], "julia_3", 8) == 0)
+				vars.f_render = render_julia3;
+			else
+			{
+				display_options();
+				return (0);
+			}
 		}
 	}
 	fractal(&vars, argv[2]);
@@ -105,7 +115,9 @@ void	display_options(void)
 	ft_printf("\n");
 	ft_printf("\nAvailable fractals:\n\n");
 	ft_printf("* mandelbrot\n");
-	ft_printf("* julia\n\n");
+	ft_printf("* julia_1\n");
+	ft_printf("* julia_2\n");
+	ft_printf("* julia_3\n\n");
 	while (i++ < 92)
 		ft_printf("-");
 	i = 0;
@@ -135,8 +147,14 @@ int	check_valid_arg(char **argv)
 		return (1);
 	if (ft_strncmp(argv[1], "mandelbrot", 12) != 0)
 	{
-		if (ft_strncmp(argv[1], "julia", 7) != 0)
-			return (1);
+		if (ft_strncmp(argv[1], "julia_1", 7) != 0)
+		{
+			if (ft_strncmp(argv[1], "julia_2", 7) != 0)
+			{
+				if (ft_strncmp(argv[1], "julia_3", 7) != 0)
+					return (1);
+			}
+		}
 	}
 	if (ft_strncmp(argv[2], "bernstein", 11) != 0)
 	{
