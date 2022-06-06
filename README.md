@@ -11,7 +11,7 @@ In my own words: It is a cool pattern which repeats itself the further you zoom 
 
 ### Requirements:
 The fractol project requires XQuartz to open a graphical window: https://www.xquartz.org/ 
-Further it utilizes the minilibx of the 42 network, of which a version is included in the repo.
+Further it utilizes the `minilibx` of the 42 network, of which a version is included in the repo as well as my own standard library `libft`, which was my first 42 project.
 
 ### How to compile it:
 `git clone` the repo on your computer. 
@@ -23,17 +23,17 @@ Run `./fractol` to see the available options. There are different fractals and c
 To choose an option and execute the program, run `./fractol <fractal_name> <color_scheme>`.
 
 #### Available fractal options:
-- mandelbrot
-- julia_1              (Constant: -0.76 - 0.8i)
-- julia_2              (Constant: -1.09 + 0.252i)
-- julia_3              (Constant: 0.1071 + 0.5991i)
-- burning_ship
+- `mandelbrot`
+- `julia_1`              (Constant: -0.76 - 0.8i)
+- `julia_2`              (Constant: -1.09 + 0.252i)
+- `julia_3`              (Constant: 0.1071 + 0.5991i)
+- `burning_ship`
 
 #### Available color schemes:
-- bernstein            (utilizing bernstein polynomials)
-- blue_hour            (utilizing sine)
-- golden_hour          (utilizing sine)
-- black_white          (utilizing sine)
+- `bernstein`            (utilizing bernstein polynomials)
+- `blue_hour`            (utilizing sine)
+- `golden_hour`          (utilizing sine)
+- `black_white`          (utilizing sine)
 
 ### How to operate the program:
 - Use the zoom wheel of your mouse to zoom in and out.
