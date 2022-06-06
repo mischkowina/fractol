@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 14:22:38 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/06 14:59:13 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:12:49 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	handle_mouse(int key, int x, int y, t_vars *vars)
 		mul = 1.02;
 	x_axis = (vars->x_max - vars->x_min) * mul;
 	y_axis = (vars->y_max - vars->y_min) * mul;
-	if (y_axis < 0.000001 || y_axis > 1000)
+	if (y_axis < 0.000002 || y_axis > 1000)
 		return (1);
 	adjust_scale(vars, &p, mul);
 	vars->x_zero = (vars->x_min * -1) * (WIDTH / x_axis);
