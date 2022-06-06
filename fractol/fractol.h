@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:32:56 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/04 19:19:45 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/06 14:58:25 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	get_r_and_i(t_point *p, t_vars *vars);
 double	check_z(t_vars *vars);
 int		create_trgb(unsigned int t, unsigned int r,
 			unsigned int g, unsigned int b);
+void	adjust_scale(t_vars *vars, t_point *p, double mul);
 
 void	determine_color(t_vars *vars, char *color);
 void	color_bernstein(t_data *img, int x, int y, t_point z);

@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 14:22:38 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/01 14:24:49 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/06 14:59:13 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	key_right_left(int key, t_vars *vars)
  * @param x [int] x-coordinate of the pixel the mouse is pointing on.
  * @param y [int] y-coordinate of the pixel the mouse is pointing on.
  * @param vars [t_vars *] Pointer to the struct containing important variables.
+ * @return [int] Returns 0 if zoom is succesful, 1 if it exceeds double limit.
 */
 int	handle_mouse(int key, int x, int y, t_vars *vars)
 {
@@ -115,11 +116,10 @@ int	handle_mouse(int key, int x, int y, t_vars *vars)
 		mul = 1.02;
 	x_axis = (vars->x_max - vars->x_min) * mul;
 	y_axis = (vars->y_max - vars->y_min) * mul;
-	vars->x_min = p.r - (p.x * (x_axis / WIDTH));
-	vars->x_max = vars->x_min + x_axis;
+	if (y_axis < 0.000001 || y_axis > 1000)
+		return (1);
+	adjust_scale(vars, &p, mul);
 	vars->x_zero = (vars->x_min * -1) * (WIDTH / x_axis);
-	vars->y_max = p.i + (p.y * (y_axis / HEIGHT));
-	vars->y_min = vars->y_max - y_axis;
 	vars->y_zero = vars->y_max * (HEIGHT / y_axis);
 	return (0);
 }

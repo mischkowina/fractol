@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 14:18:30 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/04 19:02:46 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/06 14:58:30 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,27 @@ double	check_z(t_vars *vars)
 int	create_trgb(unsigned int t, unsigned int r, unsigned int g, unsigned int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
+}
+
+/**
+ * Adjusts the scales of the displayed area according to the zoom factor mul.
+ * @param vars [t_vars *] Pointer to the struct containing important variables.
+ * @param p [t_point *] Pointer to the variables describing the anchor pixel.
+ * @param mul [double] Zoom factor by which the displayed area is de-/increased.
+*/
+void	adjust_scale(t_vars *vars, t_point *p, double mul)
+{
+	double	x_axis_old;
+	double	y_axis_old;
+	double	x_axis;
+	double	y_axis;
+
+	x_axis_old = vars->x_max - vars->x_min;
+	x_axis = x_axis_old * mul;
+	y_axis_old = (vars->y_max - vars->y_min);
+	y_axis = y_axis_old * mul;
+	vars->x_min = p->r - (((p->r - vars->x_min) / x_axis_old) * x_axis);
+	vars->x_max = vars->x_min + x_axis;
+	vars->y_max = p->i + (((vars->y_max - p->i) / y_axis_old) * y_axis);
+	vars->y_min = vars->y_max - y_axis;
 }
