@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:30:22 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/04 19:28:33 by smischni         ###   ########.fr       */
+/*   Updated: 2022/06/06 19:35:16 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ int	render(t_vars *vars)
 	ft_bzero(vars->img.addr, WIDTH * HEIGHT * sizeof(int));
 	p.x = 0;
 	p.y = 0;
-	while (p.y <= HEIGHT)
+	while (p.y < HEIGHT)
 	{
 		p.x = 0;
-		while (p.x <= WIDTH)
+		while (p.x < WIDTH)
 		{
 			vars->f_render(&p, vars);
 			if (vars->z.res >= 4)
