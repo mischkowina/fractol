@@ -6,7 +6,7 @@
 #    By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 16:30:01 by smischni          #+#    #+#              #
-#    Updated: 2022/06/06 14:58:51 by smischni         ###   ########.fr        #
+#    Updated: 2022/06/17 14:56:23 by smischni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,8 @@ MLX_PATH	=	../mlx/
 all:		$(NAME)
 
 $(NAME):	libft mlx $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) \
-	-L/usr/X11/lib/ -lXext -lX11 -lm -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) -o $(NAME) \
+	-L/usr/X11/lib/ -lXext -lX11 -lm
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

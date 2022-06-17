@@ -6,7 +6,7 @@
 #    By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/22 12:04:09 by smischni          #+#    #+#              #
-#    Updated: 2022/04/03 16:05:57 by smischni         ###   ########.fr        #
+#    Updated: 2022/06/17 14:57:41 by smischni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,16 +69,16 @@ NAME		=	libft.a
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-	ar -rc $(NAME) $(OBJS)
+	@ar -rc $(NAME) $(OBJS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $^
+	@$(CC) $(CFLAGS) $^
 
 clean:
-	rm -f $(OBJS) $(BONUS_OBJS)
+	@rm -f $(OBJS) $(BONUS_OBJS)
 
 fclean:		clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re:			fclean all
 
