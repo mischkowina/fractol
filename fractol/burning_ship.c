@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 17:04:39 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/04 18:53:17 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/07 13:59:07 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	init_burning_ship(t_vars *vars, char *color)
 	vars->x_min = -1;
 	vars->y_max = 2;
 	vars->y_min = -1;
-	vars->x_zero = 480;
-	vars->y_zero = 720;
+	vars->x_zero = WIDTH / 3;
+	vars->y_zero = HEIGHT / 5 * 4;
 	return (0);
 }
 

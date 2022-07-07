@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:38:52 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/04 18:54:52 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/07 13:52:55 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	init_mandelbrot(t_vars *vars, char *color)
 	vars->x_min = -2;
 	vars->y_max = 1;
 	vars->y_min = -1;
-	vars->x_zero = 960;
-	vars->y_zero = 540;
+	vars->x_zero = WIDTH * 2 / 3;
+	vars->y_zero = HEIGHT / 2;
 	return (0);
 }
 

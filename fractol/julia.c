@@ -6,7 +6,7 @@
 /*   By: smischni <smischni@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 15:40:09 by smischni          #+#    #+#             */
-/*   Updated: 2022/06/04 18:53:48 by smischni         ###   ########.fr       */
+/*   Updated: 2022/07/07 13:58:07 by smischni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	init_julia(t_vars *vars, char *color)
 	vars->x_min = -1.8;
 	vars->y_max = 1.2;
 	vars->y_min = -1.2;
-	vars->x_zero = 720;
-	vars->y_zero = 540;
+	vars->x_zero = WIDTH / 2;
+	vars->y_zero = HEIGHT / 2;
 	return (0);
 }
 
