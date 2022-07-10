@@ -17,6 +17,7 @@ Further it utilizes the `minilibx` of the 42 network, of which a version is incl
 `git clone` the repo on your computer. 
 `cd` into `fractol/`.
 Run `make` to compile.
+If the display size does not fit your screen, you can adjust the variables WIDTH & HEIGHT in the header file `fractol.h`.
 
 ### How to run it
 Run `./fractol` to see the available options. There are different fractals and color-schemes available.
