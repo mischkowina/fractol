@@ -10,7 +10,8 @@ remains the same at every scale."
 In my own words: It is a cool pattern which repeats itself the further you zoom in. 
 
 ### Requirements:
-The fractol project requires XQuartz to open a graphical window: https://www.xquartz.org/ 
+The fractol project requires opening a graphical window using X11. For Mac, I used XQuartz: https://www.xquartz.org/ - for other operating systems,
+please find an alternative yourself. No guarantee that the code works without adjustments though! :-)
 Further it utilizes the `minilibx` of the 42 network, of which a version is included in the repo as well as my own standard library `libft`, which was my first 42 project.
 
 ### How to compile it:
